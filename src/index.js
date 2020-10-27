@@ -1,6 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css'; 
+import Axios from 'axios';
+
+const API_KEY = '87388aa0974f3cc9ddf2e4adac39a39e';
+
+
+var artists;
 
 class Header extends React.Component{
     render(){
@@ -157,45 +163,31 @@ class Subtitle extends React.Component{
 }
 
 class LibraryGrid extends React.Component{
+    
+
     render(){
+        const firstRow = this.props.artists ? this.props.artists.filter((item, index) => index < 4 )
+                            .map((item) => (
+                                <div className='artistGridCard'>
+                                    <img src={item.image[2]['#text']}/>
+                                    <p>{item.name} <a>({item.playcount} plays)</a></p>
+                                </div>
+                            )) : null
+
+        const secondRow = this.props.artists ? this.props.artists.filter((item, index) => index >= 4 )
+                            .map((item) => (
+                                <div className='artistGridCard'>
+                                    <img src={item.image[2]['#text']}/>
+                                    <p>{item.name} <a>({item.playcount} plays)</a></p>
+                                </div>
+                            )) : null
         return(
             <div className='libraryGrid'>
                 <div className='gridRow'>
-                    <div className='artistGridCard'>
-                        <img src='https://lastfm.freetls.fastly.net/i/u/770x0/d6a72088dcd6445a9eb48e209928074d.webp#d6a72088dcd6445a9eb48e209928074d'/>
-                        <p>Dance of Days <a>(100 plays)</a></p>
-                    </div>
-                    <div className='artistGridCard'>
-                        <img src='https://lastfm.freetls.fastly.net/i/u/770x0/e04fcfad4143489b95e92615671da12f.webp#e04fcfad4143489b95e92615671da12f'/>
-                        <p>Dead Fish <a>(99 plays)</a></p>
-                    </div>
-                    <div className='artistGridCard'>
-                        <img src='https://lastfm.freetls.fastly.net/i/u/770x0/b056daade78c41d9b10fadf501261247.webp#b056daade78c41d9b10fadf501261247' />
-                        <p>Zander <a>(90 plays)</a></p>
-                    </div>
-                    <div className='artistGridCard'>
-                        <img src='https://lastfm.freetls.fastly.net/i/u/770x0/02643a8b0ae14000b79d6402b1bea177.webp#02643a8b0ae14000b79d6402b1bea177'/>
-                        <p>Garage Fuzz <a>(50 plays)</a></p>
-                    </div>
+                    {firstRow}
                 </div>
                 <div className='gridRow'>
-                    <div className='artistGridCard'>
-                        <img src='https://lastfm.freetls.fastly.net/i/u/770x0/bd6427fdb08d5ee0f763e95046d91a76.webp#bd6427fdb08d5ee0f763e95046d91a76' />
-                        <p>Descendents <a>(32 plays)</a></p>
-                    </div>
-                    <div className='artistGridCard'>
-                        <img src='https://lastfm.freetls.fastly.net/i/u/770x0/c7969efcc9c34628b10d225b8c4c84b6.gif#c7969efcc9c34628b10d225b8c4c84b6'/>
-                        <p>Fun People <a>(20 plays)</a></p>
-                    </div>
-                    <div className='artistGridCard'>
-                        <img src='https://lastfm.freetls.fastly.net/i/u/770x0/b297563c814b8991e8cbd1511ad2fbc9.webp#b297563c814b8991e8cbd1511ad2fbc9'/>
-                        <p>Bad Religion <a>(10 plays)</a></p>
-                    </div>
-                    <div className='artistGridCard'>
-                        <img src='https://lastfm.freetls.fastly.net/i/u/770x0/e66184879822487c94f9ed0728ca8720.webp#e66184879822487c94f9ed0728ca8720'/>
-                        <p>Rancid <a>(3 plays)</a></p>
-                    </div>
-                    
+                    {secondRow}    
                 </div>
             </div>
         )
@@ -245,41 +237,63 @@ class Library extends React.Component{
             <div className='library'>
                 <h2>ThePaulBranco's library</h2>
                 <Subtitle/>
-                <LibraryGrid/>
+                <LibraryGrid artists={this.props.artists}/>
                 <a  className='seeMore' href='#'>See More</a>
             </div> 
         )
     }
 }
 
+
+const periods = ['Last 7 Days', 'Last month', 'Last 3 months', 'Last 6 months', 
+                'Last 12 months', 'Overall']
+
 class ArtistChart extends React.Component{
+    state = {
+        selectedPeriod: 'Overall'
+    }
+
+    changeTab = (item) => {
+        this.setState({
+            selectedPeriod: item
+        })
+    }
+
     render(){
-    
+        const topCount = this.props.artists ? this.props.artists[0].playcount : null;
+        console.log(topCount);
+        const chartRows = this.props.artists ? this.props.artists.map((item, index) => (
+            <tr style={{backgroundColor: index%2==0 ? '#D8D8D8' : '#fff'}}>
+                <td className='position'>{index+1}</td>
+                <td className='subject'> {item.name}</td>
+                <td className='chartBarCell'>
+                    <div className='chartBar' style={{width: `${(item.playcount/topCount)*100}%`}}>
+                        <a href='#'>{item.playcount}</a>
+                    </div>
+                </td>
+            </tr>
+        )) : null
+
+
+        const tabItens = periods.map((item) => {
+            let comp = this.state.selectedPeriod == item ?
+            <li id='selected'>{item}</li>:
+            <li onClick={() => this.changeTab(item)} style={{cursor: 'pointer'}}>{item}</li>
+            return comp;
+        })
+
         return(
             <div className='artistChart'>
                 <h2>Top Artists</h2>
                 <div className='tabs'>
                 <ul>
-                    <li id='selected'>Last 7 days</li>
-                    <li>Last month</li>
-                    <li>Last 3 months</li>
-                    <li>Last 6 months</li>
-                    <li>Last 12 months</li>
-                    <li>Overall</li>
+                    {tabItens}
                 </ul>
                 </div>
                 <div className='chart'>
                     <table>
                         <tbody>
-                            <tr>
-                                <td className='position'>1</td>
-                                <td className='subject'> Dance of Days</td>
-                                <td className='chartBarCell'>
-                                    <div className='chartBar'>
-                                        <a href='#'>100</a>
-                                    </div>
-                                </td>
-                            </tr>
+                            {chartRows}
                         </tbody>
                     </table>
                 </div>
@@ -290,6 +304,23 @@ class ArtistChart extends React.Component{
 
 
 class Page extends React.Component{
+    state = {
+        artists: null
+    }
+    
+    componentDidMount(){
+        this.loadData();
+    }
+
+    loadData = async () => {
+        var response = await Axios.get(`http://ws.audioscrobbler.com/2.0/?method=user.gettopartists&username=fltngboy&api_key=${API_KEY}&limit=8&format=json`)
+        
+        this.setState({
+            artists: response.data.topartists.artist
+        })
+        console.log(this.state.artists[0].image[0]);
+    }
+
     render(){
         return(
             <div className='page'>
@@ -297,8 +328,8 @@ class Page extends React.Component{
                     <UserCard />
                     <ProfileOptions />
                     <RecentScrobbles />
-                    <Library />
-                    <ArtistChart />
+                    <Library artists={this.state.artists}/>
+                    <ArtistChart artists={this.state.artists}/>
                 </div>
                 <div className='rightCol'></div>
             </div>
@@ -307,7 +338,10 @@ class Page extends React.Component{
 }
 
 class Main extends React.Component{
+
+    
     render(){
+       
         return(
             <div id='wrapper'>
                 <Header />
