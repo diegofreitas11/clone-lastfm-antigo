@@ -19,21 +19,21 @@ class Subtitle extends React.Component{
 
 class LibraryGrid extends React.Component{
     render(){
-        const firstRow = this.props.artists ? this.props.artists.filter((item, index) => index < 4 )
-                            .map((item) => (
-                                <div className='artistGridCard'>
-                                    <img src={item.image[2]['#text']}/>
-                                    <p>{item.name} <a>({item.playcount} plays)</a></p>
-                                </div>
-                            )) : null
+        const firstRow = this.props.artists ? 
+        this.props.artists.filter((item, index) => index < 4 ).map((item) => (
+            <div className='artistGridCard'>
+                <img src={item.image[2]['#text']}/>
+                <p>{item.name} <a>({item.playcount} plays)</a></p>
+            </div>
+        )) : null
 
-        const secondRow = this.props.artists ? this.props.artists.filter((item, index) => index >= 4 )
-                            .map((item) => (
-                                <div className='artistGridCard'>
-                                    <img src={item.image[2]['#text']}/>
-                                    <p>{item.name} <a>({item.playcount} plays)</a></p>
-                                </div>
-                            )) : null
+        const secondRow = this.props.artists ? 
+        this.props.artists.filter((item, index) => index >= 4 && index < 8).map((item) => (
+            <div className='artistGridCard'>
+                <img src={item.image[2]['#text']}/>
+                <p>{item.name} <a>({item.playcount} plays)</a></p>
+            </div>
+        )) : null
         return(
             <div className='libraryGrid'>
                 <div className='gridRow'>

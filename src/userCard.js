@@ -59,7 +59,6 @@ export default class UserCard extends React.Component{
         this.setState({
             userInfo: response.data.user
         })
-        console.log(response.data.user);
     }
     render(){
         return(

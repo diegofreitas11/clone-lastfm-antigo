@@ -5,7 +5,7 @@ import api from './services/api';
 import ProfileOptions from './profileOptions';
 import RecentScrobbles from './recentScrobbles';
 import Library from './library';
-import ArtistChart from './artistChart';
+import Chart from './chart';
 
 const API_KEY = '87388aa0974f3cc9ddf2e4adac39a39e';
 
@@ -23,13 +23,17 @@ export default class Page extends React.Component{
 
     loadData = async () => {
         let user = window.location.href.split('/')[3] || 'fltngboy';
-        var responseArtists = await api.get(`?api_key=${API_KEY}&method=user.gettopartists&username=${user}&limit=8&format=json`);
-        var responseTracks = await api.get(`?api_key=${API_KEY}&method=user.getrecenttracks&username=${user}&limit=4&format=json`);
+        let topArtistsResponse = await api.get(`?api_key=${API_KEY}&method=user.gettopartists&username=${user}&limit=10&format=json`);
+        let topTracksResponse = await api.get(`?api_key=${API_KEY}&method=user.gettoptracks&username=${user}&limit=10&format=json`)
+        let recentTracksResponse = await api.get(`?api_key=${API_KEY}&method=user.getrecenttracks&username=${user}&limit=4&format=json`);
+        console.log(topTracksResponse.data);
+
         this.setState({
-            artists: responseArtists.data.topartists.artist,
-            recentscrobbles: responseTracks.data.recenttracks.track
+            artists: topArtistsResponse.data.topartists.artist,
+            tracks: topTracksResponse.data.toptracks.track,
+            recentscrobbles: recentTracksResponse.data.recenttracks.track
         })
-        console.log(responseTracks.data.recenttracks.track);
+        //console.log(responseTracks.data.recenttracks.track);
     }
 
     render(){
@@ -40,7 +44,8 @@ export default class Page extends React.Component{
                     <ProfileOptions />
                     <RecentScrobbles scrobbles={this.state.recentscrobbles}/>
                     <Library artists={this.state.artists}/>
-                    <ArtistChart artists={this.state.artists}/>
+                    <Chart charts={this.state.artists}/>
+                    <Chart charts={this.state.tracks}/>
                 </div>
                 <div className='rightCol'></div>
             </div>
