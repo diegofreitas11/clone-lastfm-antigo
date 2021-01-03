@@ -1,7 +1,7 @@
 
 <h1 align="center">Clone do Last.fm antigo.</h1>
 
-<p align="center">O last.fm é um site que cataloga seu histórico de audições em players e serviços de streaming, transformando-o em tabelas e recomendações. Em 2015 o site mudou sua interface, deixando a grande maioria dos usuários insatisfeito e uma nostalgia em relação a essa antiga interface foi sendo alimentada de lá pra cá. Pensando nisso, para exercitar meus conhecimentos em desenvolvimento front-end resolvi fazer uma réplica simples do layout pré-2015 do last.fm utilizando os dados da api do próprio last.fm.</p>
+<p align="center">O last.fm é um site que cataloga seu histórico de audições em players e serviços de streaming, transformando-o em tabelas e recomendações. Em 2015 o site mudou sua interface, deixando a grande maioria dos usuários insatisfeitos e uma nostalgia em relação a essa antiga interface foi sendo alimentada de lá pra cá. Pensando nisso, para exercitar meus conhecimentos em desenvolvimento front-end resolvi fazer uma réplica simples do layout pré-2015 do last.fm utilizando os dados da api do próprio last.fm.</p>
 
 <h5 align="center">Em construção.</h5>
 
