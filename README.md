@@ -28,5 +28,28 @@ ou
 npm start
 ```
 
-4. Acesse 'localhost:3000/' no navegador. A url sem nada, redireciona os dados do meu perfil do last.fm: 'fltngboy', qualquer username que for colocado após a barra os dados respectivos serão buscados (os charts, a api do last.fm não retorna corretamente alguns dados básicos como idade).
+4. Acesse 'localhost:3000/' no navegador. A url sem nada, redireciona os dados do meu perfil do last.fm, qualquer username que for colocado após a barra os dados respectivos serão buscados (a api do last.fm não retorna corretamente alguns dados básicos como idade). Alguns exemplos de username para testar: fltngboy, mariacarol_, mad-inside, siamesedrearn.
+
+<h2 align="center">Alguns prints.</h2>
+
+Alguns prints do que foi até agora. (Ressaltando que os dados são buscados do last.fm atual).
+
+<img src='./prints/print1.jpeg' />
+
+<img src='./prints/print2.jpeg' />
+
+Os charts de período diferentes são buscados dinamicamente.
+
+<img src='./prints/print3.jpeg' />
+
+<img src='./prints/print4.jpeg' />
+
+Prints do last fm antigo capturado pelo <a href='http://web.archive.org'>Web Archive</a>.
+
+<img src='./prints/print5.jpeg' />
+
+<img src='./prints/print6.jpeg' />
+
+
+
 
