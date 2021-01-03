@@ -18,9 +18,10 @@ class OptionsList extends React.Component{
 
 class Compatibility extends React.Component{
     render(){
+        let user = window.location.href.split('/')[3]
         return(
             <div className='compatibility'>
-                <p>Your musical compatibility with <strong>ThePaulBranco </strong> 
+                <p>Your musical compatibility with <strong>{user} </strong> 
                 is <strong>UNKNOWN</strong></p>
                 <span id='compatibilityBar'></span>
                 <a>Compare your taste</a>

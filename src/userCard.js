@@ -23,7 +23,6 @@ class UserCardInfo extends React.Component{
             <div className='userCardInfo'>
                 <p>
                     <strong>{info ? info.realname : null}</strong>, 99<br/>
-                    <a href='#'>twitter.com/_diego_of</a> <br/>
                     <small className='grayDetail'>Last seen: 6 years ago</small>
                 </p>
                 <p>

@@ -29,6 +29,7 @@ export default class Page extends React.Component{
         console.log(topTracksResponse.data);
 
         this.setState({
+            user: user,
             artists: topArtistsResponse.data.topartists.artist,
             tracks: topTracksResponse.data.toptracks.track,
             recentscrobbles: recentTracksResponse.data.recenttracks.track
@@ -43,7 +44,10 @@ export default class Page extends React.Component{
                     <UserCard />
                     <ProfileOptions />
                     <RecentScrobbles scrobbles={this.state.recentscrobbles}/>
-                    <Library artists={this.state.artists}/>
+                    <Library
+                        user={this.state.user}
+                        artists={this.state.artists}
+                    />
                     <Chart charts={this.state.artists}/>
                     <Chart charts={this.state.tracks}/>
                 </div>

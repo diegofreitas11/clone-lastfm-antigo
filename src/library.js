@@ -10,7 +10,7 @@ class Subtitle extends React.Component{
                     <p className='grayDetail'>Showing: Last 7 Days</p>
                 </div>
                 <div id='libraryPlayButton'>
-                    Play ThePaulBranco's library
+                    Play {this.props.user}'s library
                 </div>
             </div>
         )
@@ -51,8 +51,10 @@ export default class Library extends React.Component{
     render(){
         return(
             <div className='library'>
-                <h2>ThePaulBranco's library</h2>
-                <Subtitle/>
+                <h2>{this.props.user}'s library</h2>
+                <Subtitle
+                    user={this.props.user}
+                />
                 <LibraryGrid artists={this.props.artists}/>
                 <a  className='seeMore' href='#'>See More</a>
             </div> 
